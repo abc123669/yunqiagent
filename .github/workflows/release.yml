@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  rust-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: server/core
+      - run: cargo test --workspace --locked
+        working-directory: server/core
+
+  desktop-build:
+    needs: rust-tests
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: win
+            artifact: release/YunqiAgent-0.2.18-Windows-x64.exe
+          - os: ubuntu-latest
+            target: linux
+            artifact: release/YunqiAgent-0.2.18-Linux-x64.AppImage
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - if: matrix.target == 'win'
+        run: npx electron-builder --win portable --x64
+      - if: matrix.target == 'linux'
+        run: npx electron-builder --linux AppImage --x64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yunqiagent-${{ matrix.target }}
+          path: ${{ matrix.artifact }}
+          if-no-files-found: error
+
+  publish:
+    needs: desktop-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: yunqiagent-*
+          path: release-assets
+          merge-multiple: true
+      - name: Create release and attach platform builds
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release-assets/* --title "YunqiAgent $GITHUB_REF_NAME" --generate-notes

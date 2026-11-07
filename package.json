@@ -1,6 +1,6 @@
 {
   "name": "yunqiagent-desktop",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "type": "module",
   "description": "云栖 Agent · 可定制 Windows 工作台",
   "author": "YunqiAgent contributors",
@@ -12,7 +12,9 @@
     "test": "tsx --test tests/*.test.ts",
     "test:desktop": "tsx tests/desktop.ts",
     "pack": "npm run build && electron-builder --win dir",
-    "dist": "npm run build && electron-builder --win portable"
+    "dist": "npm run build && electron-builder --win portable",
+    "dist:win": "npm run build && electron-builder --win portable --x64",
+    "dist:linux": "npm run build && electron-builder --linux AppImage --x64"
   },
   "dependencies": {
     "lucide-react": "^0.577.0",
@@ -56,6 +58,11 @@
     "portable": {
       "artifactName": "YunqiAgent-${version}-Windows-x64.exe",
       "useZip": true
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "artifactName": "YunqiAgent-${version}-Linux-x64.${ext}",
+      "category": "Utility"
     }
   }
 }

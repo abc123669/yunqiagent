@@ -16,7 +16,7 @@ YunqiAgent is an open-source, self-hosted coding agent with a Rust execution cor
 ## Requirements
 
 - Rust 1.85 or newer for the agent core.
-- Node.js 22.12 or newer and Windows x64 for the desktop client.
+- Node.js 22.12 or newer on Windows x64 or Linux x64 for the desktop client.
 - PostgreSQL with pgvector for persistent memory and conversation storage.
 - An SSH account on the agent host and a model endpoint supported by the gateway.
 
@@ -37,9 +37,10 @@ npm ci
 npm run build
 npm test
 npm run dist
+npm run dist:linux
 ```
 
-Launch the generated portable executable. In **Settings**, enter the SSH host, port, username, agent binary path, and the host's SHA256 fingerprint. Leave the model field empty to use the agent host's default model. The first connection requires the SSH password; Windows stores it through Electron `safeStorage`.
+Windows builds a portable executable; Linux builds an AppImage. In **Settings**, enter the SSH host, port, username, agent binary path, and the host's SHA256 fingerprint. Leave the model field empty to use the agent host's default model. The first connection requires the SSH password; Windows stores it through Electron `safeStorage`.
 
 For development, use `npm start`; `npm run dev` starts a browser preview that does not have desktop IPC or SSH access. `npm run test:desktop` runs the desktop UI checks. Live model tests are opt-in and require `YUNQI_TEST_PASSWORD` in the environment.
 

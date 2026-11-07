@@ -43,7 +43,7 @@ try {
   await expect(page.getByText('今天，专注一件重要的事。',{exact:true})).toHaveCount(0);
   await page.getByRole('textbox',{name:'消息',exact:true}).fill('');
   await expect(page.getByRole('status')).toHaveCount(0,{timeout:6000});
-  await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.17-界面.png')});
+  await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.18-界面.png')});
   if(process.env.YUNQI_TEST_ENABLE_SSH==='1'){
     await page.getByRole('button',{name:'设置',exact:true}).click();
     if(process.env.YUNQI_TEST_PASSWORD)await page.getByRole('textbox',{name:'SSH 密码',exact:true}).fill(process.env.YUNQI_TEST_PASSWORD);
@@ -60,7 +60,7 @@ try {
     await expect(page.locator('.stream-status')).toBeVisible();
     await expect(page.locator('.typing')).toHaveCount(0);
     await expect(page.locator('.stream-caret')).toBeVisible({timeout:15000});
-    await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.17-生成中.png')});
+    await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.18-生成中.png')});
     await page.getByRole('textbox',{name:'消息',exact:true}).fill('保留的下一条草稿');
     await expect(page.getByRole('button',{name:'停止生成',exact:true})).toHaveCount(0,{timeout:180000});
     frameStats=await page.evaluate(`typeof window.__stopFrameProbe==='function'?window.__stopFrameProbe():null`);
@@ -68,7 +68,7 @@ try {
     await expect(page.getByRole('button',{name:'重新编辑'})).toHaveCount(0);
     await expect(page.getByText(/次工具调用/)).toHaveCount(0);
     await expect(page.getByRole('textbox',{name:'消息',exact:true})).toHaveValue('保留的下一条草稿');
-    await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.17-真实对话.png')});
+    await page.screenshot({path:path.resolve(root,'../YunqiAgent-0.2.18-真实对话.png')});
     await page.getByRole('button',{name:/开启新对话/}).click();
     await page.getByRole('textbox',{name:'消息',exact:true}).fill('不要调用工具，写一段三千字的技术说明。');
     await page.getByRole('button',{name:'发送消息',exact:true}).click();
