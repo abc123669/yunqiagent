@@ -1,0 +1,28 @@
+# ═══════════════════════════════════════════════════════════════
+#  yq-llm —— 模型路由 / 流式 / KV-cache 友好组装
+# ═══════════════════════════════════════════════════════════════
+[package]
+name        = "yq-llm"
+description = "yunqiagent 模型层：OpenAI 兼容客户端、流式、KV-cache 友好的 prompt 组装"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio       = { workspace = true }
+serde       = { workspace = true }
+serde_json  = { workspace = true }
+toml        = { workspace = true }
+thiserror   = { workspace = true }
+anyhow      = { workspace = true }
+tracing     = { workspace = true }
+yq-core     = { workspace = true }
+reqwest     = { version = "0.12", default-features = false, features = [
+    "json",
+    "stream",
+    "rustls-tls",
+    "gzip",
+] }
+futures-util = "0.3"

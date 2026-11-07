@@ -1,0 +1,20 @@
+{
+  "id": "daily-workbench",
+  "name": "每日工作台",
+  "version": "1.0.0",
+  "description": "添加专注卡片、快捷提示词和雾蓝主题。",
+  "enabled": true,
+  "theme": { "accent": "#3b6fd8", "accent-dim": "#e7efff" },
+  "operations": [
+    { "op": "patch", "target": "brand", "props": { "text": "云栖 · 专注" } },
+    { "op": "patch", "target": "toolbar-inspector", "props": { "text": "工作台" } },
+    { "op": "add", "parent": "composer-actions", "node": { "id": "daily-plan-shortcut", "type": "button", "props": { "text": "先梳理需求", "icon": "brain", "action": "prompt", "prompt": "请先帮我把需求梳理清楚，再给出实现步骤。" } } },
+    { "op": "add", "parent": "before-chat", "node": {
+      "id": "daily-focus", "type": "card",
+      "props": { "text": "今天，专注一件重要的事。", "subtitle": "把想法交给云栖，留出时间给创造。" },
+      "children": [{ "id": "daily-action", "type": "button", "props": {
+        "text": "规划今天的任务", "action": "prompt", "prompt": "帮我把今天的工作拆成一个清晰、可执行的计划。"
+      }}]
+    }}
+  ]
+}

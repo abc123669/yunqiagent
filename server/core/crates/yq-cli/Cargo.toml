@@ -1,0 +1,37 @@
+[package]
+name        = "yq-cli"
+description = "yunqiagent 主二进制：迁移、REPL、TUI、QQ 服务、记忆命令"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[[bin]]
+name = "yunqiagent"
+path = "src/main.rs"
+
+[dependencies]
+tokio              = { workspace = true }
+sqlx               = { workspace = true }
+clap               = { workspace = true }
+toml               = { workspace = true }
+serde              = { workspace = true }
+serde_json         = { workspace = true }
+anyhow             = { workspace = true }
+thiserror          = { workspace = true }
+tracing            = { workspace = true }
+tracing-subscriber = { workspace = true }
+dotenvy            = { workspace = true }
+futures-util       = "0.3"
+chrono             = { workspace = true }
+uuid               = { workspace = true }
+yq-db              = { workspace = true }
+yq-memory          = { workspace = true }
+yq-core            = { workspace = true }
+yq-tui             = { workspace = true }
+yq-llm             = { workspace = true }
+yq-onebot          = { workspace = true }
+yq-qq              = { workspace = true }
+yq-qqofficial      = { workspace = true }
+yq-heartbeat       = { workspace = true }

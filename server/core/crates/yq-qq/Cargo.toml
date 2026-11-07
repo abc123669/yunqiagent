@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════════
+#  yq-qq —— QQ 业务层（路由、权限、格式）
+# ═══════════════════════════════════════════════════════════════
+[package]
+name        = "yq-qq"
+description = "yunqiagent QQ 业务层：触发判定、会话路由、消息格式化与分片"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio      = { workspace = true }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+uuid       = { workspace = true }
+thiserror  = { workspace = true }
+anyhow     = { workspace = true }
+tracing    = { workspace = true }
+yq-core    = { workspace = true }
+yq-onebot  = { workspace = true }

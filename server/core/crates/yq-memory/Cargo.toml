@@ -1,0 +1,17 @@
+[package]
+name        = "yq-memory"
+description = "yunqiagent 分层记忆：仓储读写、检索（阶段一提供基础读写）"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio     = { workspace = true }
+sqlx      = { workspace = true }
+serde     = { workspace = true }
+chrono    = { workspace = true }
+thiserror = { workspace = true }
+tracing   = { workspace = true }
+yq-db     = { workspace = true }

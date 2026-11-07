@@ -1,0 +1,95 @@
+# ═══════════════════════════════════════════════════════════════
+#  yunqiagent —— workspace 根清单
+#  阶段一成员：yq-db / yq-memory / yq-cli
+#  后续阶段（预留）：
+#    yq-core      Agent 循环、5 工具、子代理、自我审查
+#    yq-tui       ratatui 全屏界面
+#    yq-heartbeat 非阻塞心跳调度
+#    yq-onebot    OneBot11 协议层
+#    yq-qq        QQ 业务层（路由、权限、格式）
+#    yq-plugin    wasmtime + 外部进程宿主
+#    yq-mcp       MCP client（仅客户端）
+#    yq-llm       模型路由、流式、KV-cache 友好组装
+# ═══════════════════════════════════════════════════════════════
+
+[workspace]
+resolver = "3"
+members = [
+    "crates/yq-db",
+    "crates/yq-memory",
+    "crates/yq-core",
+    "crates/yq-tui",
+    "crates/yq-cli",
+    "crates/yq-heartbeat",
+    "crates/yq-onebot",
+    "crates/yq-llm",
+    "crates/yq-qq",
+    "crates/yq-plugin",
+    "crates/yq-qqofficial",
+]
+
+[workspace.package]
+version      = "0.1.0"
+edition      = "2024"
+rust-version = "1.85"
+license      = "MIT OR Apache-2.0"
+authors      = ["YunqiAgent contributors"]
+
+# ── 统一依赖版本（各 crate 用 workspace = true 引用）──
+[workspace.dependencies]
+# 异步运行时
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "io-std", "io-util", "time", "sync", "fs", "process"] }
+
+# 数据库
+sqlx = { version = "0.8", default-features = false, features = [
+    "runtime-tokio",
+    "tls-rustls",
+    "postgres",
+    "macros",
+    "migrate",
+    "chrono",
+    "uuid",
+    "json",
+] }
+
+# 序列化
+serde      = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml       = "0.8"
+
+# 错误处理
+thiserror = "2"
+anyhow    = "1"
+
+# CLI
+clap = { version = "4", features = ["derive", "env"] }
+
+# 日志
+tracing            = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# 时间 / 唯一标识
+chrono = { version = "0.4", default-features = false, features = ["clock", "std", "serde"] }
+uuid   = { version = "1", features = ["v4", "serde"] }
+
+# 本地 .env 加载
+dotenvy = "0.15"
+
+# 内部 crate 互引
+yq-db     = { path = "crates/yq-db" }
+yq-memory = { path = "crates/yq-memory" }
+yq-core   = { path = "crates/yq-core" }
+yq-tui    = { path = "crates/yq-tui" }
+yq-llm    = { path = "crates/yq-llm" }
+yq-onebot = { path = "crates/yq-onebot" }
+yq-qq     = { path = "crates/yq-qq" }
+yq-qqofficial = { path = "crates/yq-qqofficial" }
+yq-heartbeat = { path = "crates/yq-heartbeat" }
+
+# ── 发布 / 性能 ──
+[profile.release]
+opt-level = 3
+lto       = "thin"
+codegen-units = 1
+panic     = "abort"
+strip     = true

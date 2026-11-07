@@ -1,0 +1,21 @@
+[package]
+name        = "yq-core"
+description = "yunqiagent 核心：五工具、KV-cache 前缀组装、persona、消息模型、Agent 循环骨架"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio       = { workspace = true }
+serde       = { workspace = true }
+serde_json  = { workspace = true }
+toml        = { workspace = true }
+chrono      = { workspace = true }
+thiserror   = { workspace = true }
+anyhow      = { workspace = true }
+tracing     = { workspace = true }
+async-trait = "0.1"
+yq-memory   = { workspace = true }
+sha2        = "0.10"

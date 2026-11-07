@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════════════
+#  yq-plugin —— 插件宿主（双轨：WASM + 外部进程）
+# ═══════════════════════════════════════════════════════════════
+#
+#  设计说明（树莓派工程判断）：
+#    · 外部进程轨（stdio JSON-RPC）**默认开启** —— 零重依赖、任意语言可写
+#    · WASM 轨（wasmtime + WASI）**由 `wasm` feature 控制，默认关闭** ——
+#      wasmtime 在 aarch64 上编译耗时长、产物体积大，会拖累主构建与内存预算。
+#      需要时：`cargo build -p yq-plugin --features wasm`
+[package]
+name        = "yq-plugin"
+description = "yunqiagent 插件宿主：清单解析、能力校验、热插拔、双轨运行"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[features]
+default = []
+# WASM 轨（wasmtime + WASI）。默认关闭：树莓派上编译重、体积大。
+wasm = ["dep:wasmtime", "dep:wasmtime-wasi"]
+
+[dependencies]
+tokio      = { workspace = true }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+toml       = { workspace = true }
+thiserror  = { workspace = true }
+anyhow     = { workspace = true }
+tracing    = { workspace = true }
+uuid       = { workspace = true }
+
+# WASM 轨可选依赖
+wasmtime      = { version = "27", optional = true }
+wasmtime-wasi = { version = "27", optional = true }

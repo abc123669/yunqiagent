@@ -1,0 +1,12 @@
+{
+  "id": "minimal-layout",
+  "name": "极简布局",
+  "version": "1.0.0",
+  "description": "隐藏工作台侧栏和底部状态栏，将常用记忆入口放到侧边栏。关闭插件即恢复。",
+  "enabled": true,
+  "operations": [
+    { "op": "patch", "target": "inspector", "props": { "hidden": true } },
+    { "op": "remove", "target": "status" },
+    { "op": "add", "parent": "sidebar-extra", "node": { "id": "quick-memory", "type": "button", "props": { "text": "查看长期记忆", "icon": "brain", "action": "memories" } } }
+  ]
+}

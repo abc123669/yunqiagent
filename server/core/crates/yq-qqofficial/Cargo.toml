@@ -1,0 +1,34 @@
+# ═══════════════════════════════════════════════════════════════
+#  yq-qqofficial —— QQ 开放平台官方机器人接入
+#
+#  与 yq-onebot 的区别：
+#    · yq-onebot      —— 第三方 QQ 客户端（NapCat 等）的 OneBot11 协议
+#    · yq-qqofficial  —— 腾讯官方机器人 API（QQ 开放平台，服务端，无需 QQ 客户端）
+#
+#  参考：QQ 开放平台官方文档 + botpy/botgo SDK 实现
+# ═══════════════════════════════════════════════════════════════
+[package]
+name        = "yq-qqofficial"
+description = "yunqiagent QQ 开放平台官方机器人接入（Access Token + WebSocket + REST API）"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio             = { workspace = true }
+serde             = { workspace = true }
+serde_json        = { workspace = true }
+thiserror         = { workspace = true }
+anyhow            = { workspace = true }
+tracing           = { workspace = true }
+chrono            = { workspace = true }
+reqwest           = { version = "0.12", default-features = false, features = [
+    "json",
+    "rustls-tls",
+    "gzip",
+] }
+tokio-tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+futures-util      = "0.3"
+yq-core           = { workspace = true }

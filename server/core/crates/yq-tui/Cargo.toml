@@ -1,0 +1,16 @@
+[package]
+name        = "yq-tui"
+description = "yunqiagent 终端界面：ratatui 全屏 + 逐 token 流式渲染"
+version.workspace      = true
+edition.workspace      = true
+rust-version.workspace = true
+license.workspace      = true
+authors.workspace      = true
+
+[dependencies]
+tokio     = { workspace = true }
+anyhow    = { workspace = true }
+tracing   = { workspace = true }
+yq-core   = { workspace = true }
+ratatui   = "0.29"
+crossterm = "0.28"
