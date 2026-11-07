@@ -64,4 +64,5 @@ jobs:
       - name: Create release and attach platform builds
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" release-assets/* --title "YunqiAgent $GITHUB_REF_NAME" --generate-notes
+          GH_REPO: ${{ github.repository }}
+        run: gh release create "$GITHUB_REF_NAME" --repo "$GH_REPO" release-assets/* --title "YunqiAgent $GITHUB_REF_NAME" --generate-notes
