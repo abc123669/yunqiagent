@@ -36,7 +36,6 @@
   "build": {
     "appId": "io.github.yunqiagent.desktop",
     "productName": "YunqiAgent",
-    "electronDist": "node_modules/electron/dist",
     "directories": {
       "output": "release"
     },
